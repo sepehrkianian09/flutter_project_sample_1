@@ -25,7 +25,7 @@ class AccountPage extends StatelessWidget {
 }
 
 class RegisterPage extends StatelessWidget {
-  final controller = UserController();
+  final controller = Get.find<UserController>();
 
   static final _bodyFormKey = GlobalKey<FormBuilderState>();
   Widget getForm() {
@@ -49,7 +49,7 @@ class RegisterPage extends StatelessWidget {
             spacing: 5.0,
             children: [
               ElevatedButton(
-                onPressed: null,
+                onPressed: () => Get.toNamed('/account?hasAccount=true'),
                 child: const Text("Have an account?"),
               ),
               ElevatedButton(
@@ -69,8 +69,7 @@ class RegisterPage extends StatelessWidget {
         _bodyFormKey.currentState!.value['username'],
         _bodyFormKey.currentState!.value['password'],
       );
-      print('what is love');
-      Get.toNamed('/account?hasAccount=true');
+      Get.toNamed('/dashboard');
     }
   }
 
@@ -85,15 +84,59 @@ class RegisterPage extends StatelessWidget {
 }
 
 class LoginPage extends StatelessWidget {
-  Widget getBody() {
-    return const Text('Login Form');
+  final controller = Get.find<UserController>();
+
+  static final _bodyFormKey = GlobalKey<FormBuilderState>();
+  Widget getForm() {
+    return FormBuilder(
+      key: _bodyFormKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 5.0,
+        children: [
+          FormBuilderTextField(
+            name: "username",
+            decoration: InputDecoration(labelText: 'Username'),
+          ),
+          FormBuilderTextField(
+            name: "password",
+            decoration: InputDecoration(labelText: "Password"),
+            obscureText: true,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 5.0,
+            children: [
+              ElevatedButton(
+                onPressed: () => Get.toNamed('/account?hasAccount=false'),
+                child: const Text("Don't have an account?"),
+              ),
+              ElevatedButton(
+                onPressed: loginOnPressed,
+                child: const Text("Register"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void loginOnPressed() {
+    if (_bodyFormKey.currentState!.saveAndValidate()) {
+      controller.login(
+        _bodyFormKey.currentState!.value['username'],
+        _bodyFormKey.currentState!.value['password'],
+      );
+      Get.toNamed('/dashboard');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Login'), centerTitle: true),
-      body: getBody(),
+      body: Padding(padding: const EdgeInsets.all(16.0), child: getForm()),
       bottomNavigationBar: _BottomNavigationBar(),
     );
   }

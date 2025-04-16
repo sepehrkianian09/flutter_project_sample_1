@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_1/controllers/user.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -9,13 +10,17 @@ class DashboardPage extends StatelessWidget {
 }
 
 class FinancialAppLayout extends StatelessWidget {
-  const FinancialAppLayout({super.key});
+  final controller = Get.find<UserController>();
+
+  FinancialAppLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      Get.toNamed('/account');
-    });
+    if (!controller.isLoggedIn()) {
+      Future.delayed(Duration.zero, () {
+        Get.toNamed('/account');
+      });
+    }
 
     return Scaffold(
       appBar: _getAppBar(),
