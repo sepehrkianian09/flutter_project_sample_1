@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_1/controllers/user.dart';
+import 'package:project_1/services/account.dart';
+import 'package:project_1/services/login.dart';
 
 import 'account.dart';
 import 'dashboard.dart';
 
 Future<void> main() async {
   await initDataStorage();
+
+  Get.lazyPut<UserController>(() => UserController());
+
+  Get.lazyPut<AccountService>(() => AccountService());
+  Get.lazyPut<LoginService>(() => LoginService());
+
   runApp(const FinancialApp());
 }
 

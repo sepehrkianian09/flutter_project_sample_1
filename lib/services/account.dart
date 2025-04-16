@@ -15,24 +15,39 @@ class UserParser extends ObjectParser<User> {
   }
 }
 
-class UserService {
+class AccountService {
   final storage = Hive.box("storage");
   final usersSerializer = ListSerializer<User>(UserParser());
 
   List<User> users = [];
 
-  UserService() {
+  AccountService() {
     if (storage.containsKey('users')) {
       users = usersSerializer.parse(storage.get('users'));
     }
   }
 
+  bool _containsUser(String username) {
+    return users.any((aUser) => aUser.name == username);
+  }
+
   addUser(User user) {
-    if (users.any((aUser) => aUser.name == user.name)) {
+    if (_containsUser(user.name)) {
       throw "Repeated Username";
     }
 
     users.add(user);
     storage.put('users', usersSerializer.stringify(users));
+  }
+
+  authenticate(String username, String passwordHash) {
+    if (!_containsUser(username)) {
+      throw "User Not Found";
+    }
+
+    User user = users.firstWhere((user) => user.name == username);
+    if (user.passwordHash != passwordHash) {
+      throw "Wrong Password";
+    }
   }
 }
