@@ -3,17 +3,25 @@ import 'package:get/get.dart';
 import 'package:project_1/controllers/user.dart';
 import 'package:project_1/services/account.dart';
 import 'package:project_1/services/login.dart';
+import 'package:project_1/storage/hive.dart';
+import 'package:project_1/storage/interface.dart';
 
 import 'account.dart';
 import 'dashboard.dart';
 
-Future<void> main() async {
-  await initDataStorage();
+void specifyConfiguration() {
+  Get.lazyPut<DataStorage>(() => HiveDataStorage());
 
   Get.lazyPut<UserController>(() => UserController());
 
   Get.lazyPut<AccountService>(() => AccountService());
   Get.lazyPut<LoginService>(() => LoginService());
+}
+
+Future<void> main() async {
+  specifyConfiguration();
+
+  await Get.find<DataStorage>().init();
 
   runApp(const FinancialApp());
 }

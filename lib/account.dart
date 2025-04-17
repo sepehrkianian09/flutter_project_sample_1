@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:project_1/controllers/user.dart';
 
-Future<void> initDataStorage() async {
-  await Hive.initFlutter();
-  await Hive.openBox("storage");
-}
 
 bool _parseBool(String? input) {
   input ??= 'false';
