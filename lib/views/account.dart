@@ -14,7 +14,16 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool hasAccount = _parseBool(Get.parameters['hasAccount']);
-    return hasAccount ? LoginPage() : RegisterPage();
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 400),
+          alignment: Alignment.center,
+          child: Center(child: hasAccount ? LoginPage() : RegisterPage()),
+        ),
+      ),
+    );
   }
 }
 
