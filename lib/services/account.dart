@@ -1,4 +1,5 @@
-import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:get/get.dart';
+import 'package:project_1/dataStorage/interface.dart';
 
 import '../models/user.dart';
 import 'parser.dart';
@@ -16,14 +17,14 @@ class UserParser extends ObjectParser<User> {
 }
 
 class AccountService {
-  final storage = Hive.box("storage");
-  final usersSerializer = ListSerializer<User>(UserParser());
+  final _storage = Get.find<DataStorage>();
+  final _usersSerializer = ListSerializer<User>(UserParser());
 
   List<User> users = [];
 
   AccountService() {
-    if (storage.containsKey('users')) {
-      users = usersSerializer.parse(storage.get('users'));
+    if (_storage.containsKey('users')) {
+      users = _usersSerializer.parse(_storage.get('users'));
     }
   }
 
@@ -37,7 +38,7 @@ class AccountService {
     }
 
     users.add(user);
-    storage.put('users', usersSerializer.stringify(users));
+    _storage.add('users', _usersSerializer.stringify(users));
   }
 
   authenticate(String username, String passwordHash) {
