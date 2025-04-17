@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/user.dart';
+import 'package:project_1/views/dashboard/wallet.dart';
+
+import 'dashboard/categories.dart';
+import 'dashboard/statistics.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -17,15 +21,15 @@ class FinancialAppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!controller.isLoggedIn()) {
-      Future.delayed(Duration.zero, () {
-        Get.toNamed('/account?hasAccount=true');
-      });
+      // Future.delayed(Duration.zero, () {
+      //   Get.toNamed('/account?hasAccount=true');
+      // });
     }
 
     return Scaffold(
       appBar: _getAppBar(),
-      body: Center(child: Text('Home Page')),
-      bottomNavigationBar: _getNavigationBar(),
+      body: Obx(() => _pages[_selectedIndex.value]),
+      bottomNavigationBar: Obx(() => getBottomNavigator(context)),
     );
   }
 
@@ -47,35 +51,32 @@ class FinancialAppLayout extends StatelessWidget {
     );
   }
 
-  Widget _getNavigationBar() {
-    return FinancialAppBottomNavigationBar();
-  }
-}
-
-class FinancialAppBottomNavigationBar extends StatelessWidget {
-  int _selectedIndex = 0;
+  final RxInt _selectedIndex = 1.obs;
 
   final List<Widget> _pages = <Widget>[
-    Center(child: Text('Home Page')),
-    Center(child: Text('Search Page')),
-    Center(child: Text('Profile Page')),
+    StatisticsWidget(),
+    WalletWidget(),
+    CategoriesWidget(),
   ];
 
-  FinancialAppBottomNavigationBar({super.key});
-
   void _onItemTapped(int index) {
-    _selectedIndex = index;
+    _selectedIndex.value = index;
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget getBottomNavigator(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: _selectedIndex,
+      currentIndex: _selectedIndex.value,
       onTap: _onItemTapped,
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.analytics),
+          label: 'Statistics',
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.wallet), label: 'Wallet'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.category),
+          label: 'Categories',
+        ),
       ],
     );
   }
