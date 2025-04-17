@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:project_1/controllers/user.dart';
 
-
 bool _parseBool(String? input) {
   input ??= 'false';
   if (input.toLowerCase() == 'true') return true;
@@ -64,6 +63,7 @@ class RegisterPage extends StatelessWidget {
         _bodyFormKey.currentState!.value['username'],
         _bodyFormKey.currentState!.value['password'],
       );
+      _bodyFormKey.currentState!.reset();
       Get.toNamed('/dashboard');
     }
   }
@@ -108,7 +108,7 @@ class LoginPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: loginOnPressed,
-                child: const Text("Register"),
+                child: const Text("Login"),
               ),
             ],
           ),
@@ -123,6 +123,7 @@ class LoginPage extends StatelessWidget {
         _bodyFormKey.currentState!.value['username'],
         _bodyFormKey.currentState!.value['password'],
       );
+      _bodyFormKey.currentState!.reset();
       Get.toNamed('/dashboard');
     }
   }

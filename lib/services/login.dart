@@ -1,17 +1,18 @@
-import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:get/get.dart';
+import 'package:project_1/dataStorage/interface.dart';
 
 class LoginService {
-  final storage = Hive.box("storage");
+  final _storage = Get.find<DataStorage>();
 
   setActiveUser(String username) {
-    storage.put("activeUser", username);
+    _storage.add("activeUser", username);
   }
 
   bool gotActiveUser() {
-    return storage.containsKey('activeUser');
+    return _storage.containsKey('activeUser');
   }
 
   removeActiveUser() {
-    storage.delete('activeUser');
+    _storage.remove('activeUser');
   }
 }

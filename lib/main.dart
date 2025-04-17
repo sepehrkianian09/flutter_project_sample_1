@@ -1,28 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_1/controllers/user.dart';
-import 'package:project_1/services/account.dart';
-import 'package:project_1/services/login.dart';
-import 'package:project_1/storage/hive.dart';
-import 'package:project_1/storage/interface.dart';
+import 'package:project_1/configurer.dart';
 
-import 'account.dart';
-import 'dashboard.dart';
-
-void specifyConfiguration() {
-  Get.lazyPut<DataStorage>(() => HiveDataStorage());
-
-  Get.lazyPut<UserController>(() => UserController());
-
-  Get.lazyPut<AccountService>(() => AccountService());
-  Get.lazyPut<LoginService>(() => LoginService());
-}
+import 'views/account.dart';
+import 'views/dashboard.dart';
 
 Future<void> main() async {
-  specifyConfiguration();
-
-  await Get.find<DataStorage>().init();
-
+  await Configurer().specify();
   runApp(const FinancialApp());
 }
 

@@ -18,7 +18,7 @@ class FinancialAppLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!controller.isLoggedIn()) {
       Future.delayed(Duration.zero, () {
-        Get.toNamed('/account');
+        Get.toNamed('/account?hasAccount=true');
       });
     }
 
@@ -29,6 +29,11 @@ class FinancialAppLayout extends StatelessWidget {
     );
   }
 
+  void logout() {
+    controller.logout();
+    Get.toNamed('/account?hasAccount=true');
+  }
+
   AppBar _getAppBar() {
     return AppBar(
       title: const Text('Financial App'),
@@ -36,7 +41,7 @@ class FinancialAppLayout extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.logout),
           tooltip: 'Logout',
-          onPressed: () => print('logged out'),
+          onPressed: logout,
         ),
       ],
     );
