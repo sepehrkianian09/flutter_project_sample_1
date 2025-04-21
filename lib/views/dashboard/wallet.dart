@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:project_1/controllers/wallet.dart';
 import 'package:project_1/models/income.dart';
 import 'package:project_1/models/spend.dart';
 
@@ -33,18 +35,7 @@ class SpendIncomeLayoutWidget extends StatelessWidget {
 }
 
 class WalletWidget extends StatelessWidget {
-  final List<Income> incomes = [
-    Income(2.0, DateTime(2020, 10, 3, 10, 20, 3)),
-    Income(4.0, DateTime(2016, 2, 5, 3, 56, 20)),
-  ];
-  final double totalIncome = 324.0;
-
-  final List<Spend> spends = [
-    Spend(2.0, DateTime(2020, 10, 3, 10, 20, 3), '1'),
-    Spend(4.0, DateTime(2016, 2, 5, 3, 56, 20), '2'),
-  ];
-  final double totalSpent = 36.0;
-  final double balance = 40.5;
+  final _controller = Get.find<WalletController>();
 
   Widget getCenteredWidget({required children}) {
     return Container(
@@ -57,7 +48,7 @@ class WalletWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Center(child: Text("Balance: $balance")),
+        Center(child: Text("Balance: ${_controller.getBalance()}")),
         Expanded(
           child: Row(
             spacing: 5.0,
@@ -66,8 +57,11 @@ class WalletWidget extends StatelessWidget {
                 child: getCenteredWidget(
                   children: [
                     Center(child: Text("Spends")),
-                    Expanded(child: SpendIncomeLayoutWidget(elements: spends)),
-                    Center(child: Text("Total Spent: $totalSpent")),
+                    Expanded(
+                      child: SpendIncomeLayoutWidget(
+                        elements: _controller.getSpends(),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -75,8 +69,11 @@ class WalletWidget extends StatelessWidget {
                 child: getCenteredWidget(
                   children: [
                     Center(child: Text("Incomes")),
-                    Expanded(child: SpendIncomeLayoutWidget(elements: incomes)),
-                    Center(child: Text("Total Income: $totalIncome")),
+                    Expanded(
+                      child: SpendIncomeLayoutWidget(
+                        elements: _controller.getIncomes(),
+                      ),
+                    ),
                   ],
                 ),
               ),
