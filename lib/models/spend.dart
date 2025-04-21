@@ -3,7 +3,7 @@ class Spend {
   final DateTime date;
   final String categoryId;
 
-  Spend(this.amount, this.date, this.categoryId);
+  Spend({required this.amount, required this.date, required this.categoryId});
 
   @override
   String toString() {
