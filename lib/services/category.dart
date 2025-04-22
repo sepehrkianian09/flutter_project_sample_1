@@ -27,7 +27,7 @@ class CategoryService {
       if (_storage.containsKey('categories')) {
         _categories = _categorySerializer.parse(_storage.get('categories'));
       } else {
-        _categories = [];
+        _categories = [Category(name: '1')];
       }
     }
     return _categories!;
