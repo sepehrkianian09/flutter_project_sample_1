@@ -41,41 +41,47 @@ class IncomeParser extends ObjectParser<Income> {
 }
 
 class TransactionService {
+  TransactionService() {
+    _retrieveIncomes();
+    _retrieveSpends();
+  }
+
   final _storage = Get.find<DataStorage>();
 
+  List<Income> _incomes = [];
   final _incomeSerializer = ListSerializer<Income>(IncomeParser());
-  List<Income>? _incomes;
-  List<Income> getIncomes() {
-    if (_incomes == null) {
-      if (_storage.containsKey('incomes')) {
-        _incomes = _incomeSerializer.parse(_storage.get('incomes'));
-      } else {
-        _incomes = [];
-      }
+
+  void _retrieveIncomes() {
+    if (_storage.containsKey('incomes')) {
+      _incomes = _incomeSerializer.parse(_storage.get('incomes'));
     }
-    return _incomes!;
+  }
+
+  List<Income> getIncomes() {
+    return _incomes.toList();
   }
 
   addIncome(Income anIncome) {
-    getIncomes().add(anIncome);
-    _storage.add('incomes', _incomeSerializer.stringify(getIncomes()));
+    _incomes.add(anIncome);
+    _storage.add('incomes', _incomeSerializer.stringify(_incomes));
   }
 
+
+  List<Spend> _spends = [];
   final _spendSerializer = ListSerializer<Spend>(SpendParser());
-  List<Spend>? _spends;
-  List<Spend> getSpends() {
-    if (_incomes == null) {
-      if (_storage.containsKey('spends')) {
-        _spends = _spendSerializer.parse(_storage.get('spends'));
-      } else {
-        _spends = [];
-      }
+
+  void _retrieveSpends() {
+    if (_storage.containsKey('spends')) {
+      _spends = _spendSerializer.parse(_storage.get('spends'));
     }
-    return _spends!;
+  }
+
+  List<Spend> getSpends() {
+    return _spends.toList();
   }
 
   addSpend(Spend aSpend) {
-    getSpends().add(aSpend);
-    _storage.add('spends', _spendSerializer.stringify(getSpends()));
+    _spends.add(aSpend);
+    _storage.add('spends', _spendSerializer.stringify(_spends));
   }
 }

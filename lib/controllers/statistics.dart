@@ -9,7 +9,7 @@ class StatisticsController {
 
   Map<String, double> getTotalSpentPerCategory() {
     final categories = _categoryController.getCategories();
-    final spends = _walletController.getSpends();
+    final spends = _walletController.spends;
 
     final totalSpentPerCategory = <String, double>{};
 

@@ -9,7 +9,7 @@ class ListSerializer<T> {
 
   ListSerializer(this._objectSerializer);
 
-  List<T> parse(List<Map<String, dynamic>> aTJSonList) {
+  List<T> parse(List<dynamic> aTJSonList) {
     return aTJSonList
         .map(
           (aTJSon) =>
