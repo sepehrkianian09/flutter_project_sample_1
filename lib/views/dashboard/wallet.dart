@@ -1,116 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/wallet.dart';
-import 'package:project_1/views/dashboard/addIncome.dart';
-import 'package:project_1/views/dashboard/addSpend.dart';
+import 'package:project_1/models/income.dart';
+import 'package:project_1/models/spend.dart';
+import 'package:project_1/views/dashboard/wallet/transactionItemCollectionConceretes/addIncome.dart';
+import 'package:project_1/views/dashboard/wallet/transactionItemCollectionConceretes/addSpend.dart';
+import 'package:project_1/views/dashboard/wallet/collectionLayoutBuilder.dart';
+import 'package:project_1/views/dashboard/wallet/transactionItemCollectionConceretes/incomesCollection.dart';
+import 'package:project_1/views/dashboard/wallet/transactionItemCollectionConceretes/spendsCollection.dart';
+import 'package:project_1/views/dashboard/wallet/transactionItemCollection.dart';
 
-class SpendIncomeLayoutWidget extends StatelessWidget {
-  final RxList elements;
-
-  const SpendIncomeLayoutWidget({super.key, required this.elements});
-
-  Widget _listView(BuildContext context) {
-    return Obx(() {
-      if (elements.isEmpty) {
-        return Center(child: Text('No items yet.'));
-      }
-      return ListView.builder(
-        itemCount: elements.length,
-        itemBuilder: (context, index) {
-          return Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(vertical: 3.0, horizontal: 4.0),
-            color: Colors.red,
-            child: Text(elements[index].toString()),
-          );
-          // return ListTile(
-          //   title: Text(elements[index]),
-          //   trailing: IconButton(
-          //     icon: Icon(Icons.delete),
-          //     onPressed: () => controller.removeItem(index),
-          //   ),
-          // );
-        },
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      color: Colors.blue,
-      child: _listView(context),
-    );
-  }
-}
+import 'wallet/listView.dart';
 
 class WalletWidget extends StatelessWidget {
   final controller = Get.find<WalletController>();
 
-  WalletWidget({super.key});
-
-  Widget getCenteredWidget({required children}) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 20.0),
-      child: Column(children: children),
-    );
+  WalletWidget({super.key}) {
+    itemCollections = [
+      Spendscollection(itemList: controller.spends),
+      Incomescollection(itemList: controller.incomes),
+    ];
   }
 
-  void showModal(BuildContext context, Widget innerWidget) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  Widget _getResponsiveGridView(
+    BuildContext context, {
+    required List<Widget> children,
+  }) {
+    final gridElementMaxWidth = 500.0;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final crossAxisCount = screenWidth > gridElementMaxWidth ? 2 : 1;
+    final antiCrossAxisCount = crossAxisCount == 1 ? 2 : 1;
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: gridElementMaxWidth * 2,
+          maxHeight: gridElementMaxWidth * antiCrossAxisCount,
+        ),
+        child: GridView.count(
+          shrinkWrap: true,
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          children: children,
+        ),
       ),
-      builder:
-          (context) =>
-              Padding(padding: const EdgeInsets.all(16.0), child: innerWidget),
     );
   }
+
+  List<Transactionitemcollection> itemCollections = [];
+  Collectionlayoutbuilder collectionlayoutbuilder =
+      ConcreteCollectionLayoutBuilder();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Center(child: Obx(() => Text("Balance: ${controller.getBalance()}"))),
+        Center(
+          child: Obx(
+            () => Text(
+              "Balance: ${controller.getBalance()}",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+        ),
         Expanded(
-          child: Row(
-            spacing: 5.0,
-            children: [
-              Expanded(
-                child: getCenteredWidget(
-                  children: [
-                    Center(child: Text("Spends")),
-                    Expanded(
-                      child: SpendIncomeLayoutWidget(
-                          elements: controller.spends,
-                        ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => showModal(context, AddSpendWidget()),
-                      child: Text("Spend some"),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: getCenteredWidget(
-                  children: [
-                    Center(child: Text("Incomes")),
-                    Expanded(
-                      child: SpendIncomeLayoutWidget(
-                          elements: controller.incomes,
-                        ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => showModal(context, AddIncomeWidget()),
-                      child: Text("Add Income"),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          child: _getResponsiveGridView(
+            context,
+            children:
+                itemCollections
+                    .map(
+                      (itemCollection) => collectionlayoutbuilder.build(
+                        context,
+                        itemCollection,
+                      ),
+                    )
+                    .toList(),
           ),
         ),
       ],
