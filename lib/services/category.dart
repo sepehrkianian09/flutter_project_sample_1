@@ -17,24 +17,27 @@ class CategoryParser extends ObjectParser<Category> {
 }
 
 class CategoryService {
+  CategoryService() {
+    _retrieveCategories();
+  }
+
   final _storage = Get.find<DataStorage>();
 
+  List<Category> _categories = [];
   final _categorySerializer = ListSerializer<Category>(CategoryParser());
 
-  List<Category>? _categories;
-  List<Category> getCategories() {
-    if (_categories == null) {
-      if (_storage.containsKey('categories')) {
-        _categories = _categorySerializer.parse(_storage.get('categories'));
-      } else {
-        _categories = [Category(name: '1')];
-      }
+  void _retrieveCategories() {
+    if (_storage.containsKey('incomes')) {
+      _categories = _categorySerializer.parse(_storage.get('incomes'));
     }
-    return _categories!;
+  }
+
+  List<Category> getCategories() {
+    return _categories.toList();
   }
 
   addCategory(Category aCategory) {
-    getCategories().add(aCategory);
+    _categories.add(aCategory);
     _storage.add('categories', _categorySerializer.stringify(getCategories()));
   }
 }

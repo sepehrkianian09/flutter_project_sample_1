@@ -3,21 +3,28 @@ import 'package:project_1/models/category.dart';
 import 'package:project_1/services/category.dart';
 
 class CategoryController {
-  final _service = Get.find<CategoryService>();
+  final _categoryService = Get.find<CategoryService>();
 
   List<Category> getCategories() {
-    return _service.getCategories();
+    return _categoryService.getCategories();
   }
 
-  void addCategory(String name) {
+  void addCategory({required String name}) {
     if (containsCategory(name)) {
       throw "Repeated category";
     }
 
-    _service.addCategory(Category(name: name));
+    final theCategory = Category(name: name);
+    _categoryService.addCategory(theCategory);
+    categories.add(theCategory);
   }
 
   bool containsCategory(String categoryName) {
-    return getCategories().any((category) => category.name == categoryName);
+    return categories.any((category) => category.name == categoryName);
+  }
+
+  RxList<Category> categories;
+  CategoryController() : categories = <Category>[].obs {
+    categories.value = _categoryService.getCategories();
   }
 }
