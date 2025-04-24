@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/list_tile.dart';
 import 'package:project_1/models/spend.dart';
-import 'package:project_1/views/dashboard/wallet/transactionItemCollectionConceretes/addSpend.dart';
-import 'package:project_1/views/dashboard/wallet/transactionItemCollection.dart';
+import 'package:project_1/views/dashboard/collectionBuildingConceretes/addSpend.dart';
+import 'package:project_1/views/utils/collectionBuilding/itemCollectionFunctionalities.dart';
 
-class Spendscollection extends Transactionitemcollection<Spend> {
+class Spendscollection extends ItemCollectionFunctionalities<Spend> {
   Spendscollection({required super.itemList});
 
   @override

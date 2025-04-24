@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_1/views/dashboard/wallet/listView.dart';
-import 'package:project_1/views/dashboard/wallet/transactionItemCollection.dart';
+import 'package:project_1/views/utils/collectionBuilding/listViewWidget.dart';
+import 'package:project_1/views/utils/collectionBuilding/itemCollectionFunctionalities.dart';
 
 abstract class Collectionlayoutbuilder {
-  Widget build(BuildContext context, Transactionitemcollection itemCollection);
+  Widget build(
+    BuildContext context,
+    ItemCollectionFunctionalities itemCollection,
+  );
 }
-
 
 class ConcreteCollectionLayoutBuilder extends Collectionlayoutbuilder {
   Widget getCenteredWidget({required children}) {
@@ -29,7 +31,10 @@ class ConcreteCollectionLayoutBuilder extends Collectionlayoutbuilder {
   }
 
   @override
-  Widget build(BuildContext context, Transactionitemcollection itemCollection) {
+  Widget build(
+    BuildContext context,
+    ItemCollectionFunctionalities itemCollection,
+  ) {
     return getCenteredWidget(
       children: [
         Center(
@@ -39,13 +44,14 @@ class ConcreteCollectionLayoutBuilder extends Collectionlayoutbuilder {
           ),
         ),
         Expanded(
-          child: WalletListWidget(
+          child: ListViewWidget(
             elements: itemCollection.itemList,
             elementWidgetMaker: itemCollection.createElementTileWidget,
           ),
         ),
         ElevatedButton(
-          onPressed: () => showModal(context, itemCollection.getAddItemWidget()),
+          onPressed:
+              () => showModal(context, itemCollection.getAddItemWidget()),
           child: Text("Add ${itemCollection.getTitle()}"),
         ),
       ],
