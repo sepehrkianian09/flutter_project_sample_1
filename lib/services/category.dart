@@ -27,8 +27,8 @@ class CategoryService {
   final _categorySerializer = ListSerializer<Category>(CategoryParser());
 
   void _retrieveCategories() {
-    if (_storage.containsKey('incomes')) {
-      _categories = _categorySerializer.parse(_storage.get('incomes'));
+    if (_storage.containsKey('categories')) {
+      _categories = _categorySerializer.parse(_storage.get('categories'));
     }
   }
 
@@ -38,6 +38,6 @@ class CategoryService {
 
   addCategory(Category aCategory) {
     _categories.add(aCategory);
-    _storage.add('categories', _categorySerializer.stringify(getCategories()));
+    _storage.add('categories', _categorySerializer.stringify(_categories));
   }
 }
