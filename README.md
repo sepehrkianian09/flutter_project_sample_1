@@ -1,20 +1,43 @@
-# project_1
+# Personal Finance Tracker
 
-A new Flutter project.
+This is a flutter project aimed at helping individuals manage their financial
+operations.
 
-## Getting Started
+## Functional Requirements
 
-This project is a starting point for a Flutter application.
+First, the project includes accounting functionalities. These requirements
+include register, login, and logout. After opening the application, if the
+individual is not logged in, they will be redirected to the login page, located
+in /account. At that page, if they have not created an account before, they will
+be redirected to the registration page. After registration or logging in, the
+individuals will be redirected to the dashboard page. Moreover, after logging
+in, the individual always has the chance to logout on the top right of the
+dashboard page.
 
-A few resources to get you started if this is your first Flutter project:
+Second, there are requirements related to categories. These include adding and
+retrieving categories. The individual can access these requirements on the
+"Category" tab of the dashboard.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Third, there are requirements related to incomes and spends. Each Income can
+have a special date and an amount. They represent each income the individual
+received. The spends are similar to income, but they represent the amount of
+money the individual has spent. In addition, they have a certain category. The
+individual can add and retrieve spends and incomes on the Wallet tab of the
+dashboard.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Finally, there are requirements related to the statistics. These can be accessed
+through the statistics tab of the dashboard. At the moment, the only requirement
+in this tab, which you can access through the statistics tab, is seeing a bar
+chart of total spent per category.
 
-## Project Topic
+## UI Constraints
 
-This is a front-end component for a Personal finance tracker, including: entering income and spending, looking into spending per category, and showing statistics over time.
+The dashboard is responsive. Each subpage on the dashboard has two width
+breakpoints, mobile and tablet. mobile is any width below 500px and tablet is
+any width bigger than 500px.
+
+Moreover, there are forms if needed. The forms remember the states and forget
+them as soon as the functionality is conducted.
+
+Furthermore, there are four navigated screens. One of them, the screen
+responsible for accounting, has a path variable.
