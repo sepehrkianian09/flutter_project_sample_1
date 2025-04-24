@@ -7,6 +7,8 @@ import 'dashboard/categories.dart';
 import 'dashboard/statistics.dart';
 
 class DashboardPage extends StatelessWidget {
+  const DashboardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FinancialAppLayout();
@@ -21,9 +23,9 @@ class FinancialAppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!controller.isLoggedIn()) {
-      // Future.delayed(Duration.zero, () {
-      //   Get.toNamed('/account?hasAccount=true');
-      // });
+      Future.delayed(Duration.zero, () {
+        Get.toNamed('/account?hasAccount=true');
+      });
     }
 
     return Scaffold(
