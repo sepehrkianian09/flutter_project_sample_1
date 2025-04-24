@@ -1,57 +1,36 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/statistics.dart';
+import 'package:project_1/views/dashboard/barChart.dart';
+import 'package:project_1/views/dashboard/colorGenerator.dart';
 
 class StatisticsWidget extends StatelessWidget {
   final _statisticsController = Get.find<StatisticsController>();
 
-  double _max(List<double> numbers) {
-    if (numbers.isEmpty) {
-      return 0;
-    } else if (numbers.length == 1) {
-      return numbers.first;
-    }
+  StatisticsWidget({super.key});
 
-    return numbers.reduce((a, b) => a > b ? a : b);
-  }
+  Widget _getResponsiveGridView(
+    BuildContext context, {
+    required List<Widget> children,
+  }) {
+    final gridElementMaxWidth = 500.0;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final crossAxisCount = screenWidth > gridElementMaxWidth ? 2 : 1;
+    final antiCrossAxisCount = crossAxisCount == 1 ? 2 : 1;
 
-  Widget _createBarChart(Map<String, double> chartData) {
-    final chartXs = chartData.keys.toList();
-    final maxValueOfChart =
-        (_max(chartData.values.toList()) * 1.2).ceil() as double;
-
-    return BarChart(
-      BarChartData(
-        alignment: BarChartAlignment.spaceAround,
-        maxY: maxValueOfChart,
-        barTouchData: BarTouchData(enabled: true),
-        titlesData: FlTitlesData(
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: (value, _) {
-                return Text([...chartXs][value.toInt()]);
-              },
-            ),
-          ),
-          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: gridElementMaxWidth,
+          maxHeight: gridElementMaxWidth * antiCrossAxisCount,
         ),
-        borderData: FlBorderData(show: false),
-        barGroups:
-            chartData.entries
-                .map(
-                  (mapEntry) => BarChartGroupData(
-                    x: chartXs.indexOf(mapEntry.key),
-                    barRods: [
-                      BarChartRodData(toY: mapEntry.value, color: Colors.blue),
-                    ],
-                  ),
-                )
-                .toList(),
+        child: GridView.count(
+          shrinkWrap: true,
+          crossAxisCount: 1,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          children: children,
+        ),
       ),
     );
   }
@@ -59,16 +38,22 @@ class StatisticsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spentPerCategory = _statisticsController.getTotalSpentPerCategory();
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(40.0),
-      child: Column(
-        spacing: 20.0,
-        children: [
-          Text("Statistics", style: Theme.of(context).textTheme.titleLarge),
-          Expanded(child: _createBarChart(spentPerCategory)),
-        ],
-      ),
+    return _getResponsiveGridView(
+      context,
+      children: [
+        Column(
+          spacing: 20.0,
+          children: [
+            Text("Statistics", style: Theme.of(context).textTheme.titleLarge),
+            Expanded(
+              child: BarChartWidget(
+                chartData: spentPerCategory,
+                chartColorGenerator: RandomColorGenerator(),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
