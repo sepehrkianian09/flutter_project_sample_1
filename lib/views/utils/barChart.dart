@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_1/views/dashboard/colorGenerator.dart';
+import 'package:project_1/views/utils/colorGenerator.dart';
 
 class BarChartWidget extends StatelessWidget {
   final Map<String, double> chartData;

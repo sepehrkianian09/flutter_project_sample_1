@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/list_tile.dart';
 import 'package:project_1/models/income.dart';
-import 'package:project_1/views/dashboard/wallet/transactionItemCollectionConceretes/addIncome.dart';
-import 'package:project_1/views/dashboard/wallet/transactionItemCollection.dart';
+import 'package:project_1/views/dashboard/collectionBuildingConceretes/addIncome.dart';
+import 'package:project_1/views/utils/collectionBuilding/itemCollectionFunctionalities.dart';
 
-class Incomescollection extends Transactionitemcollection<Income> {
+class Incomescollection extends ItemCollectionFunctionalities<Income> {
   Incomescollection({required super.itemList});
 
   @override

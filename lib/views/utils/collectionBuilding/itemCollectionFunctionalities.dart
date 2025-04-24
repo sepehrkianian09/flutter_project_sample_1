@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_1/views/dashboard/wallet/listView.dart';
+import 'package:project_1/views/utils/collectionBuilding/listViewWidget.dart';
 
-abstract class Transactionitemcollection<E> {
+abstract class ItemCollectionFunctionalities<E> {
   String getTitle();
 
   ListTile createElementTileWidget(int index, E anElement);
 
   final RxList<E> itemList;
-  Transactionitemcollection({required this.itemList});
+  ItemCollectionFunctionalities({required this.itemList});
 
   Widget getAddItemWidget();
 

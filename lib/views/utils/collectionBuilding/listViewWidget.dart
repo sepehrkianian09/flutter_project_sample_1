@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WalletListWidget<E> extends StatelessWidget {
+class ListViewWidget<E> extends StatelessWidget {
   final RxList<E> elements;
   final ListTile Function(int, E) elementWidgetMaker;
 
-  const WalletListWidget({
+  const ListViewWidget({
     super.key,
     required this.elements,
     required this.elementWidgetMaker,
