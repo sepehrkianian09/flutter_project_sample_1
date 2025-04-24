@@ -42,6 +42,8 @@ dependencies:
   flutter_form_builder: # no version specified
   form_builder_validators: # no version specified
 
+  fl_chart: # no version specified
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
