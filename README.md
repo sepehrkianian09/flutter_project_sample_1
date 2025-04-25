@@ -3,6 +3,8 @@
 This is a flutter project aimed at helping individuals manage their financial
 operations.
 
+The project is deployed, using firebase, in domain https://flutter-sample-1-29965.web.app
+
 ## Functional Requirements
 
 First, the project includes accounting functionalities. These requirements
