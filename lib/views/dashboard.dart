@@ -18,8 +18,6 @@ class DashboardPage extends StatelessWidget {
 class FinancialAppLayout extends StatelessWidget {
   final controller = Get.find<UserController>();
 
-  FinancialAppLayout({super.key});
-
   @override
   Widget build(BuildContext context) {
     if (!controller.isLoggedIn()) {
@@ -30,8 +28,8 @@ class FinancialAppLayout extends StatelessWidget {
 
     return Scaffold(
       appBar: _getAppBar(),
-      body: Obx(() => _pages[_selectedIndex.value]),
-      bottomNavigationBar: Obx(() => getBottomNavigator(context)),
+      body: _getPage(_selectedIndex()),
+      bottomNavigationBar: getBottomNavigator(context),
     );
   }
 
@@ -53,21 +51,35 @@ class FinancialAppLayout extends StatelessWidget {
     );
   }
 
-  final RxInt _selectedIndex = 1.obs;
+  final List<String> subPageIndex = ['statistics', 'wallet', 'categories'];
 
-  final List<Widget> _pages = <Widget>[
-    StatisticsWidget(),
-    WalletWidget(),
-    CategoriesWidget(),
-  ];
+  int _selectedIndex() {
+    final String subPage = Get.parameters['subpage']!;
+    return subPageIndex.indexOf(subPage);
+  }
+
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return StatisticsWidget();
+      case 1:
+        return WalletWidget();
+      case 2:
+        return CategoriesWidget();
+      default:
+        return Text("");
+    }
+  }
+
+  FinancialAppLayout({super.key});
 
   void _onItemTapped(int index) {
-    _selectedIndex.value = index;
+    Get.toNamed('/dashboard/${subPageIndex[index]}');
   }
 
   Widget getBottomNavigator(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: _selectedIndex.value,
+      currentIndex: _selectedIndex(),
       onTap: _onItemTapped,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(

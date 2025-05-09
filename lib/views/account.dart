@@ -73,7 +73,7 @@ class RegisterPage extends StatelessWidget {
         _bodyFormKey.currentState!.value['password'],
       );
       _bodyFormKey.currentState!.reset();
-      Get.toNamed('/dashboard');
+      Get.toNamed('/dashboard/wallet');
     }
   }
 
@@ -133,7 +133,7 @@ class LoginPage extends StatelessWidget {
         _bodyFormKey.currentState!.value['password'],
       );
       _bodyFormKey.currentState!.reset();
-      Get.toNamed('/dashboard');
+      Get.toNamed('/dashboard/wallet');
     }
   }
 

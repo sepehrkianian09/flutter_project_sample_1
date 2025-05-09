@@ -21,9 +21,9 @@ class FinancialApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: '/dashboard',
+      initialRoute: '/dashboard/wallet',
       getPages: [
-        GetPage(name: '/dashboard', page: () => DashboardPage()),
+        GetPage(name: '/dashboard/:subpage', page: () => DashboardPage()),
         GetPage(name: '/account', page: () => AccountPage()),
       ],
     );
