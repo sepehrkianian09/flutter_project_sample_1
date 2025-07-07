@@ -51,23 +51,20 @@ First, open the application using the provided URL.
 
 ### Creating An Account
 
-At first, you will be redirected to the login page. Navigate to the registration
-page using the button "haven't created an account yet?". Then, create a new
-account and password and click the button "register". then, you will be
-redirected to the dashboard page automatically.
+The page snapshot is shown in the picture below. At first, you will be redirected to the login page. Navigate to the registration page using the button "haven't created an account yet?". Then, create a new account and password and click the button "register". then, you will be redirected to the dashboard page automatically.
+
+<img src="./assets/readme/login.png" alt="Login Snapshot" width="300" style="display: flex; margin: 20px auto;"/>
 
 ### Adding Categories
 
-When on the dashboard page, press the "Categories" button on the bottom right of
-the page, to be redirected to the categories page. Thereafter, click on the add
-button on the page, so that a model pops up at the bottom of the page, providing
-an input for the name of the category. Provide a unique name for the desired
-category and click "add". then, the category is added and shown in the
+The page snapshot is shown in the picture below. When on the dashboard page, press the "Categories" button on the bottom right of the page, to be redirected to the categories page. Thereafter, click on the add button on the page, so that a model pops up at the bottom of the page, providing an input for the name of the category. Provide a unique name for the desired category and click "add". then, the category is added and shown in the
 "Categories" page.
+
+<img src="./assets/readme/categories.png" alt="Login Snapshot" width="450" style="display: flex; margin: 20px auto;"/>
 
 ### Adding Incomes
 
-First, navigate to the wallet page using the middle button of the bottom
+The page snapshot is shown in the picture below. First, navigate to the wallet page using the middle button of the bottom
 navigation bar. Then, you can see the incomes widget on the right section of the
 page when you are using a tablet mode, or the bottom when you are using a mobile
 mode. Press add on that section. Thereafter, a modal pops up with an input form
@@ -78,7 +75,7 @@ also update if you add it.
 
 ### Adding Spend
 
-First, navigate to the wallet page using the middle button of the bottom
+The page snapshot is shown in the picture below. First, navigate to the wallet page using the middle button of the bottom
 navigation bar. Then, you can see the spends widget on the left section of the
 page when you are using a tablet mode, or the top when you are using a mobile
 mode. Press add on that section. Thereafter, a modal pops up with an input form
@@ -90,8 +87,10 @@ should be less than the current balance, so that your balance will not be
 negative. Moreover, you can add the spend and see it on the collection. The
 balance will also update if you add it.
 
+<img src="./assets/readme/wallet.png" alt="Login Snapshot" width="450" style="display: flex; margin: 20px auto;"/>
+
 ### Visiting the statistics part
 
-After adding your desired spends and categories, you can see how much have you
-have spent on each category. This is the first bar chart you will visit when you
-press the "statistics" button on the bottom left of dashboard.
+The page snapshot is shown in the picture below. After adding your desired spends and categories, you can see how much have you have spent on each category. This is the first bar chart you will visit when you press the "statistics" button on the bottom left of dashboard.
+
+<img src="./assets/readme/statistics.png" alt="Login Snapshot" width="400" style="display: flex; margin: 20px auto;"/>
