@@ -1,21 +1,10 @@
 # Personal Finance Tracker
 
-This is a flutter project aimed at helping individuals manage their financial
-operations.
-
-The project is deployed, using firebase, in domain
-https://flutter-sample-1-29965.web.app
+This is a flutter project aimed at helping individuals manage their financial operations. You can check the project online in this [address](https://flutter-sample-1-29965.web.app).
 
 ## Functional Requirements
 
-First, the project includes accounting functionalities. These requirements
-include register, login, and logout. After opening the application, if the
-individual is not logged in, they will be redirected to the login page, located
-in /account. At that page, if they have not created an account before, they will
-be redirected to the registration page. After registration or logging in, the
-individuals will be redirected to the dashboard page. Moreover, after logging
-in, the individual always has the chance to logout on the top right of the
-dashboard page.
+First, the project includes accounting functionalities. These requirements include register, login, and logout. After opening the application, if the individual is not logged in, they will be redirected to the login page, located in /account. At that page, if they have not created an account before, they will be redirected to the registration page. After registration or logging in, the individuals will be redirected to the dashboard page. Moreover, after logging in, the individual always has the chance to logout on the top right of the dashboard page.
 
 Second, there are requirements related to categories. These include adding and
 retrieving categories. The individual can access these requirements on the
